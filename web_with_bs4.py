@@ -4,17 +4,20 @@ import requests
 search = "Apple"
 req = requests.get("https://en.wikipedia.org/wiki/"+search.capitalize())
 soup = bs(req.text, 'html.parser')
-# print(soup.prettify())
+
+# heading of wikipedia page
 l = soup.find('h1', {"id": "firstHeading"})
 print(l.text)
+
+# moving to the position from where content starts
 cont = soup.find("div", {"class": "mw-parser-output"}).find('table', {"class": "infobox biota"})
-# print(cont)
-# for para in cont.find("p"):
-#     soup.find
-# print(l.get_text()+"\n")
-# print(cont)
+
+# to count number of iteration
 t=0
+# holds the first paragraph
 cont = cont.find_next_sibling("p")
+
+# to end the loop before the table of content (table class="toc")
 while cont.name != "div":
     t=t+1
     print(cont.get_text())
